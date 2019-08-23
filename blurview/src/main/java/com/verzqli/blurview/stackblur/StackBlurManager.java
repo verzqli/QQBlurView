@@ -25,10 +25,13 @@
 
 package com.verzqli.blurview.stackblur;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
+import android.support.v8.renderscript.RSRuntimeException;
 import android.util.Log;
 
+import java.io.FileOutputStream;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -51,8 +54,7 @@ public class StackBlurManager {
     public Bitmap process(int radius) {
         long start = SystemClock.uptimeMillis();
         this._result = this._blurProcess.blur(this._image, 8);
-        Log.i("高斯模糊","模糊bitmap"+this._image);
-        Log.i(TAG, "process: " + this._blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
+          Log.i(TAG, "process: " + this._blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
         return this._result;
     }
 
@@ -60,13 +62,13 @@ public class StackBlurManager {
         return this._result;
     }
 
-//	public void saveIntoFile(String path) {
-//		try {
-//			this._result.compress(CompressFormat.PNG, 90, new FileOutputStream(path));
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
-//	}
+	public void saveIntoFile(String path) {
+		try {
+			this._result.compress(Bitmap.CompressFormat.PNG, 90, new FileOutputStream(path));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 
     public Bitmap getImage() {
         return this._image;
@@ -82,35 +84,35 @@ public class StackBlurManager {
         return this._result;
     }
 
-//	public Bitmap processRenderScript(Context context, float radius, int blurResId) {
-//		BlurProcess blurProcess;
-//		long start = SystemClock.uptimeMillis();
-//		if (hasRS) {
-//			try {
-//				blurProcess = new RSBlurProcess(context, blurResId);
-//			} catch (RSRuntimeException e) {
-//				blurProcess = new NativeBlurProcess();
-//				hasRS = false;
-//			}
-//		} else {
-//			blurProcess = new NativeBlurProcess();
-//		}
-//		this._result = blurProcess.blur(this._image, radius);
-//		if (this.mDbg) {
-//			Log.i(TAG, "processRenderScript: " + blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
-//		}
-//		return this._result;
-//	}
+	public Bitmap processRenderScript(Context context, float radius, int blurResId) {
+		BlurProcess blurProcess;
+		long start = SystemClock.uptimeMillis();
+		if (hasRS) {
+			try {
+				blurProcess = new RSBlurProcess(context);
+			} catch (RSRuntimeException e) {
+				blurProcess = new NativeBlurProcess();
+				hasRS = false;
+			}
+		} else {
+			blurProcess = new NativeBlurProcess();
+		}
+		this._result = blurProcess.blur(this._image, radius);
+		if (this.mDbg) {
+			Log.i(TAG, "processRenderScript: " + blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
+		}
+		return this._result;
+	}
 
-//	public Bitmap processSdkRenderScript(Context context, float radius) {
-//		long start = SystemClock.uptimeMillis();
-//		BlurProcess blurProcess = new SdkRSBlurProcess(context);
-//		this._result = blurProcess.blur(this._image, radius);
-//		if (this.mDbg) {
-//			Log.i(TAG, "processSdkRenderScript: " + blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
-//		}
-//		return this._result;
-//	}
+	public Bitmap processSdkRenderScript(Context context, float radius) {
+		long start = SystemClock.uptimeMillis();
+		BlurProcess blurProcess = new SdkRSBlurProcess(context);
+		this._result = blurProcess.blur(this._image, radius);
+		if (this.mDbg) {
+			Log.i(TAG, "processSdkRenderScript: " + blurProcess + "=" + (SystemClock.uptimeMillis() - start) + " ms");
+		}
+		return this._result;
+	}
 
     public void setDbg(boolean debug) {
         this.mDbg = debug;

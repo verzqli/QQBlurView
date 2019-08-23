@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -35,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
         qqBlurView.setEnableBlur(true);
         qqBlurView.setBlurView(qqBlurView);
         qqBlurView.setTargetView(listView);
-        qqBlurView.setBlurRadius(8);
+        qqBlurView.setBlurRadius(1);
         qqBlurView.setEraseColor(-1);
         qqBlurView.onCreate();
         qqBlurView.onAttached();
@@ -68,18 +69,21 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
+            ViewHolder holder = null;
             if (convertView == null) {
+                holder = new ViewHolder();
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item, null);
+                holder.imageView = convertView.findViewById(R.id.avatar);
+                convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
-
+            holder.imageView.setImageResource((position & 1) != 0 ? R.drawable.chenyao1 : R.drawable.chenyao2);
             return convertView;
         }
 
         class ViewHolder {
+            ImageView imageView;
         }
     }
 

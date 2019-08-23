@@ -2,7 +2,6 @@ package com.verzqli.blurview.thread;
 
 import android.os.SystemClock;
 
-import com.verzqli.blurview.thread.ThreadExcutor.IThreadListener;
 
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Field;
@@ -34,7 +33,7 @@ public class Job  extends WeakReference<Object> implements Runnable, Comparable<
     private boolean hasKey = false;
     public long mId = 0;
     public Runnable mJob;
-    public IThreadListener mListener;
+    public ThreadExcutor.IThreadListener mListener;
     public String mName;
     public int mType = 0;
     public int poolNum = -1;
@@ -50,7 +49,7 @@ public class Job  extends WeakReference<Object> implements Runnable, Comparable<
         this.canAutoRetrieve = canAutoRetrieve;
     }
 
-    Job(Object key, String name, int type, Runnable job, IThreadListener listener, boolean canAutoRetrieve) {
+    Job(Object key, String name, int type, Runnable job, ThreadExcutor.IThreadListener listener, boolean canAutoRetrieve) {
         super(key);
         if (key != null) {
             this.hasKey = true;

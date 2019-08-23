@@ -14,7 +14,6 @@ import android.graphics.Shader.TileMode;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Build.VERSION;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.SystemClock;
@@ -37,7 +36,7 @@ import java.util.List;
  *     desc  :
  * </pre>
  */
-public class QQblurManager {
+public class QQBlurManager {
     private static HandlerThread mHandlerThread = ThreadManagerV2.newFreeHandlerThread("QQBlur", -8);
     private static Field mField;
     private Context mContext;
@@ -51,7 +50,6 @@ public class QQblurManager {
     private List<View> mViewList = new ArrayList();
     private volatile boolean isDetachToWindow = true;
     public volatile Bitmap mBitmap;
-
     //模糊半径
     public int mRadius = 6;
     private float mScale = 8.0f;
@@ -100,10 +98,10 @@ public class QQblurManager {
         long elapsedRealtime = SystemClock.elapsedRealtime();
         if (this.mTargetView != null && this.mBlurView != null && this.mBlurView.getWidth() > 0 && this.mBlurView.getHeight() > 0) {
             Bitmap createBitmap;
-            int scaleWidth = QQblurManager.ceil((float) this.mBlurView.getWidth(), this.mScale);
-            int scaleHeight = QQblurManager.ceil((float) this.mBlurView.getHeight(), this.mScale);
-            int a3 = QQblurManager.fixBy16(scaleWidth);
-            int a4 = QQblurManager.fixBy16(scaleHeight);
+            int scaleWidth = QQBlurManager.ceil((float) this.mBlurView.getWidth(), this.mScale);
+            int scaleHeight = QQBlurManager.ceil((float) this.mBlurView.getHeight(), this.mScale);
+            int a3 = QQBlurManager.fixBy16(scaleWidth);
+            int a4 = QQBlurManager.fixBy16(scaleHeight);
             this.c = ((float) scaleHeight) / ((float) a4);
             this.b = ((float) scaleWidth) / ((float) a3);
             float f = this.mScale * this.b;
@@ -160,17 +158,17 @@ public class QQblurManager {
         this.mPreViewTime = (elapsedRealtime2 - elapsedRealtime) + this.mPreViewTime;
     }
 
-    public QQblurManager setTargetView(View view) {
+    public QQBlurManager setTargetView(View view) {
         this.mTargetView = view;
         return this;
     }
 
-    public QQblurManager setBlurView(View view) {
+    public QQBlurManager setBlurView(View view) {
         this.mBlurView = view;
         return this;
     }
 
-    public QQblurManager onCreate() {
+    public QQBlurManager onCreate() {
         Log.d("QQBlur", "onCreate() called");
         this.mContext = this.mBlurView.getContext();
         this.mCanvas = new Canvas();

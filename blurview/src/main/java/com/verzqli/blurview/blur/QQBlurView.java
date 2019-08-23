@@ -1,8 +1,6 @@
 package com.verzqli.blurview.blur;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -10,9 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageView;
 
 
 /**
@@ -23,11 +19,11 @@ import android.widget.ImageView;
  * </pre>
  */
 public class QQBlurView extends View {
-    private Drawable a;
+    private Drawable mDefaultDrawable;
 
     private BlurPreDraw mBlurPreDraw = new BlurPreDraw(this);
 
-    public QQblurManager mManager = new QQblurManager();
+    public QQBlurManager mManager = new QQBlurManager();
 
     private boolean mEnableBlur = true;
 
@@ -63,11 +59,10 @@ public class QQBlurView extends View {
                 super.onDraw(canvas);
                 return;
             }
-            setBackgroundDrawable(this.a);
+            setBackgroundDrawable(this.mDefaultDrawable);
             super.onDraw(canvas);
         }
     }
-
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         if (this.mManager != null) {
@@ -142,7 +137,7 @@ public class QQBlurView extends View {
     }
 
     public void setDisableBlurDrawableRes(int i) {
-        this.a = getResources().getDrawable(i);
+        this.mDefaultDrawable = getResources().getDrawable(i);
     }
 
     public void setEraseColor(int i) {

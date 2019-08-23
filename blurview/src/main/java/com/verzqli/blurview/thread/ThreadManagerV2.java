@@ -9,7 +9,6 @@ import android.os.Looper;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.verzqli.blurview.thread.ThreadExcutor.IThreadListener;
 
 import java.lang.reflect.Field;
 import java.util.Timer;
@@ -95,17 +94,17 @@ public class ThreadManagerV2 {
     }
 
     @Deprecated
-    public static void post(Runnable job, int priority, IThreadListener listener, boolean canAutoRetrieve) {
+    public static void post(Runnable job, int priority, ThreadExcutor.IThreadListener listener, boolean canAutoRetrieve) {
         ThreadExcutor.getInstance().post(priority, job, listener, canAutoRetrieve);
     }
 
     @Deprecated
-    public static void postDownLoadTask(Runnable job, int priority, IThreadListener listener, boolean canAutoRetrieve) {
+    public static void postDownLoadTask(Runnable job, int priority, ThreadExcutor.IThreadListener listener, boolean canAutoRetrieve) {
         ThreadExcutor.getInstance().postDownLoadTask(priority, job, listener, canAutoRetrieve);
     }
 
     @Deprecated
-    public static void postImmediately(Runnable job, IThreadListener listener, boolean canAutoRetrieve) {
+    public static void postImmediately(Runnable job, ThreadExcutor.IThreadListener listener, boolean canAutoRetrieve) {
         ThreadExcutor.getInstance().postImmediately(job, listener, canAutoRetrieve);
     }
 

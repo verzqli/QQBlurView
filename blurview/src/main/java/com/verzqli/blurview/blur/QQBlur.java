@@ -18,9 +18,9 @@ import com.verzqli.blurview.stackblur.StackBlurManager;
 public class QQBlur implements Runnable {
     private int a = -1;
     final StackBlurManager mStackBlurManager;
-    final QQblurManager mQQblurManager;
+    final QQBlurManager mQQblurManager;
 
-    public QQBlur(QQblurManager QQblurManager, StackBlurManager stackBlurManager) {
+    public QQBlur(QQBlurManager QQblurManager, StackBlurManager stackBlurManager) {
         this.mQQblurManager = QQblurManager;
         this.mStackBlurManager = stackBlurManager;
     }
@@ -28,11 +28,11 @@ public class QQBlur implements Runnable {
     public void run() {
         if (!this.mQQblurManager.isDrawCanvas()) {
             long elapsedRealtime = SystemClock.elapsedRealtime();
-            if (!(this.a == -1 || this.a == QQblurManager.mBlurType)) {
-                this.mQQblurManager.onPolicyChange(this.a, QQblurManager.mBlurType);
+            if (!(this.a == -1 || this.a == QQBlurManager.mBlurType)) {
+                this.mQQblurManager.onPolicyChange(this.a, QQBlurManager.mBlurType);
             }
-            this.a = QQblurManager.mBlurType;
-            int i = QQblurManager.mBlurType;
+            this.a = QQBlurManager.mBlurType;
+            int i = QQBlurManager.mBlurType;
             Bitmap process = this.mStackBlurManager.process(this.mQQblurManager.mRadius);
             if (process != null) {
                 this.mQQblurManager.mBitmap = process;
@@ -43,7 +43,6 @@ public class QQBlur implements Runnable {
             this.mQQblurManager.mBlurThreadCount++;
             this.mQQblurManager.mBlurThreadTime = (elapsedRealtime2 - elapsedRealtime) + this.mQQblurManager.mBlurThreadTime;
             View blurView = this.mQQblurManager.mBlurView;
-
             if (blurView != null && this.mQQblurManager.isDrawing) {
                 blurView.postInvalidate();
             }
